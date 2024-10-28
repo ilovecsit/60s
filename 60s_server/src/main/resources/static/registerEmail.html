@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>60s邮箱验证码</title>
+    <style>
+        table {
+            width: 700px;
+            margin: 0 auto;
+        }
+
+        #top {
+            width: 700px;
+            border-bottom: 1px solid #ccc;
+            margin: 0 auto 30px;
+        }
+
+        #top table {
+            font: 12px Tahoma, Arial, 宋体;
+            height: 40px;
+        }
+
+        #content {
+            width: 680px;
+            padding: 0 10px;
+            margin: 0 auto;
+        }
+
+        #content_top {
+            line-height: 1.5;
+            font-size: 14px;
+            margin-bottom: 25px;
+            color: #4d4d4d;
+        }
+
+        #content_top strong {
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        #content_top strong span {
+            color: #f60;
+            font-size: 16px;
+        }
+
+        #verificationCode {
+            color: #f60;
+            font-size: 24px;
+        }
+
+        #content_bottom {
+            margin-bottom: 30px;
+        }
+
+        #content_bottom small {
+            display: block;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: #747474;
+        }
+
+        #bottom {
+            width: 700px;
+            margin: 0 auto;
+        }
+
+        #bottom div {
+            padding: 10px 10px 0;
+            border-top: 1px solid #ccc;
+            color: #747474;
+            margin-bottom: 20px;
+            line-height: 1.3em;
+            font-size: 12px;
+        }
+
+        #content_top strong span {
+            font-size: 18px;
+            color: #FE4F70;
+        }
+
+        #sign {
+            text-align: right;
+            font-size: 18px;
+            color: #FE4F70;
+            font-weight: bold;
+        }
+
+        #verificationCode {
+            height: 100px;
+            width: 680px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        #verificationCode div {
+            height: 100px;
+            width: 680px;
+
+        }
+
+        .button {
+            color: #FE4F70;
+            margin-left: 10px;
+            height: 80px;
+            width: 80px;
+            resize: none;
+            font-size: 42px;
+            border: none;
+            outline: none;
+            padding: 10px 15px;
+            background: #ededed;
+            text-align: center;
+            border-radius: 17px;
+            box-shadow: 6px 6px 12px #cccccc,
+            -6px -6px 12px #ffffff;
+        }
+
+        .button:hover {
+            box-shadow: inset 6px 6px 4px #d1d1d1,
+            inset -6px -6px 4px #ffffff;
+        }
+        /* 基础样式 */
+        #copyButton {
+            /* 按钮字体 */
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            /* 按钮大小 */
+            padding: 10px 20px;
+            /* 边框 */
+            border: none;
+            border-radius: 5px; /* 轻微圆角 */
+            /* 背景渐变色 */
+            background: linear-gradient(45deg, #6e00ff, #9d49ff);
+            color: #fff; /* 文本颜色 */
+            cursor: pointer; /* 鼠标悬停时显示手形图标 */
+            transition: all 0.3s ease; /* 平滑过渡效果 */
+            outline: none; /* 点击时不显示轮廓 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 6px 20px rgba(0, 0, 0, 0.2); /* 添加阴影 */
+            position: relative; /* 为动画效果设置定位 */
+            overflow: hidden; /* 确保内容不会溢出 */
+        }
+
+        /* 鼠标悬停效果 */
+        #copyButton:hover {
+            filter: brightness(1.2); /* 增加亮度 */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3); /* 增加阴影 */
+        }
+
+        /* 点击效果 */
+        #copyButton:active {
+            transform: scale(0.95); /* 缩小按钮 */
+        }
+
+        /* 添加赛博朋克风格的动画 */
+        #copyButton::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background-color: rgba(255, 255, 255, 0.2); /* 半透明白色 */
+            background-size: 50% 50%, 50% 50%;
+            background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+            pointer-events: none;
+            animation: move 3s ease infinite;
+        }
+
+        @keyframes move {
+            0% {
+                transform: rotate(0deg) translate(0, 0);
+            }
+            100% {
+                transform: rotate(360deg) translate(50%, 50%);
+            }
+        }
+
+        /* 确保按钮在不同设备上看起来也很好 */
+        @media (max-width: 768px) {
+            #copyButton {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<table>
+    <tbody>
+    <tr>
+        <td>
+            <div id="top">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="content">
+                <div id="content_top">
+                    <strong>尊敬的用户：您好！</strong>
+                    <strong>
+                        欢迎来到<span>60s聊天室</span>，您正在进行<span>OOOOOO</span>操作，这是您的验证码：
+                    </strong>
+                    <div id="verificationCode">
+                        <button class="button">X</button>
+                    </div>
+                </div>
+                <div id="content_bottom">
+                    <small>
+                        注意：请勿向任何人泄漏此验证码
+                    </small>
+                </div>
+            </div>
+            <div id="bottom">
+                <div>
+                    <p>此为系统邮件，请勿回复<br>
+                        请保管好您的邮箱，避免账号被他人盗用
+                    </p>
+                    <p id="sign">——60s talk room</p>
+                </div>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+
+
+</html>

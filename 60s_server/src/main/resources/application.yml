@@ -1,0 +1,4 @@
+#适配不同的环境，加载不同的yml文件
+spring:
+  profiles:
+    active: dev

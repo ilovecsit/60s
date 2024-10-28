@@ -1,0 +1,61 @@
+server:
+  port: 91 #服务访问端口
+  servlet:
+    context-path: /60s #资源路径根地址 /60s
+
+
+spring:
+  #  配置数据库
+  datasource:
+    #    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/60s?useUnicode=t rue&characterEncoding=UTF-8
+    username: root
+    password: "!MYSQL@123456*"
+#    password: "数据库密码"
+  mail: #邮箱配置，使用邮箱发送服务
+    host: smtp.163.com # 邮箱服务器地址，根据实际情况填写
+    port: 465          # SMTP服务端口
+    username: chat_room_60s@163.com # 您的163邮箱地址
+    password: GLYNSJEXEVGCJIHM # 发送邮箱服务授权码
+#    username:  # 邮箱地址
+#    password:  # 发送邮箱服务授权码
+    from: ${spring.mail.username} #源邮箱地址
+    default-encoding: UTF-8 # 设置默认的邮件编码
+    protocol: smtp # 使用的协议
+    properties:
+      mail:
+        smtp:
+          auth: true # 需要认证
+          starttls:
+            enable: true # 是否启用TLS
+            required: true # 是否要求使用TLS
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory # 使用SSL连接
+
+#用户信息配置
+user:
+  maxRegisterNum: 20000 #最多可注册人数
+  maxVisitNum: 100 #最多同时可访问人数
+
+
+#速率限制配置
+rateLimiter:
+  #总的访问速率配置，这里为1秒钟最多可以支持的访问数量
+  count: 2000
+  duration: PT1s
+  #单个ip访问速率配置,表示单个ip一秒钟最多允许的请求数量
+  ipMaxVisitRate: 3
+
+#websocket配置
+myWebSocketConfig:
+  maxConnect: 100 #最多允许的webSocket连接
+  maxLeisureMinute: 480 #最长的空闲连接时长 单位 秒 (建议8分钟=480s）
+
+#websockets管理配置
+webSocketsManager:
+  syncTime: 3 #同步等待时长 单位 s
+  messageInMachineWaitTime: 100 # websockets消息转入群聊管理器的时间 单位 ms
+
+#群聊组设置
+groupSetting:
+  autoPublicGroupNum: 3 #自动创建的公共群聊数量
